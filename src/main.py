@@ -6,6 +6,7 @@ def main(page: ft.Page):
     # Basic page/window setup
     page.title = "Intake"
     page.padding = 20
+    page.bgcolor = "#1b1e34"
     page.window.width = 360   # phone-like width for desktop testing
     page.window.height = 585  # phone-like height for desktop testing
 
