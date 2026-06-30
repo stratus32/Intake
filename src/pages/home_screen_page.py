@@ -14,6 +14,7 @@ def build_home_screen(page: ft.Page):
         width=150,
         height=150,
         bgcolor="#474b5e",
+        stroke_cap=ft.StrokeCap.ROUND,
         color="#1a6efd",
         stroke_width=15,
     )
