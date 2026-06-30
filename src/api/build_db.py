@@ -2,9 +2,9 @@ import pandas as pd
 import sqlite3
 
 # Load the three source files
-names_df = pd.read_excel("data/raw/NAME.FT.xlsx", skiprows=1)
-codes_df = pd.read_excel("data/raw/Standard CODE.FT.xlsx", skiprows=1)
-data_df = pd.read_excel("data/raw/Standard DATA.FT.xlsx", skiprows=1)
+names_df = pd.read_excel("assets/data/raw/NAME.FT.xlsx", skiprows=1)
+codes_df = pd.read_excel("assets/data/raw/Standard CODE.FT.xlsx", skiprows=1)
+data_df = pd.read_excel("assets/data/raw/Standard DATA.FT.xlsx", skiprows=1)
 
 # Keep only the columns we actually need for now
 names_df = names_df[["FoodID", "Food Name"]]
