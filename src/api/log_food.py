@@ -1,5 +1,8 @@
 import sqlite3
 import os
+from datetime import date
+
+today = date.today().isoformat()  # returns "2026-07-01" as a string
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(script_dir, "..", "..", "assets", "data", "intake.db")
@@ -73,14 +76,5 @@ def get_meals_for_date(date):
 
 
 if __name__ == "__main__":
-    log_food_item(
-        date="2026-07-01",
-        meal_type="breakfast",
-        food_name="Test Toast",
-        weight_grams=50,
-        calories=120,
-        carbs=22,
-        fat=1.5,
-        protein=4
-    )
-    print("Logged successfully.")
+    result = get_meals_for_date("2026-07-01")
+    print(result)

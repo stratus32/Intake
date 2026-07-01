@@ -1,12 +1,39 @@
 import flet as ft
+import sys
+from datetime import date
+import os
+
+# Add src/ to the path so we can import from api/
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+from api.log_food import get_meals_for_date
 
 def build_home_screen(page: ft.Page):
+
+    def calculate_totals():
+        today = date.today().isoformat()
+        meals = get_meals_for_date(today)
+
+        total_calories = 0
+        total_carbs = 0
+        total_fat = 0
+        total_protein = 0
+
+        for meal_items in meals.values():  # loops through breakfast, lunch, dinner lists
+            for item in meal_items:        # loops through each food item in that meal
+                total_calories += item["calories"] or 0
+                total_carbs += item["carbs"] or 0
+                total_fat += item["fat"] or 0
+                total_protein += item["protein"] or 0
+
+        return total_calories, total_carbs, total_fat, total_protein
+    
+
     # Placeholder values — later these will come from your database
-    calories_eaten = 0
+    calories_eaten, total_carbs, total_fat, total_protein = calculate_totals()
     calorie_goal = 2000
 
     # Progress as a 0-1 float, used to fill the ring
-    progress = 0.37 + calories_eaten / calorie_goal
+    progress = calories_eaten / calorie_goal
 
     # The circular progress ring itself
     progress_ring = ft.ProgressRing(
@@ -56,9 +83,9 @@ def build_home_screen(page: ft.Page):
 
     # --- Macro tracking (carbs/fat/protein) ---
 
-    carbs_eaten, carbs_goal = 87, 250
-    fat_eaten, fat_goal = 24, 70
-    protein_eaten, protein_goal = 90, 100
+    carbs_eaten, carbs_goal = total_carbs, 250
+    fat_eaten, fat_goal = total_fat, 70
+    protein_eaten, protein_goal = total_protein, 100
 
     def build_macro_row(label, eaten, goal, color):
         return ft.Column(
